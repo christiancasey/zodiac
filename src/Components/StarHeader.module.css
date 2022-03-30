@@ -1,0 +1,128 @@
+
+
+.header {
+  position: sticky;
+  top: 0;
+  width: 100vw;
+  height: 18vw;
+  background: linear-gradient(0deg, #2D3B62FF, #28365DFF);
+  overflow: hidden;
+  overflow: visible;
+  display: block;
+  
+  /* fadeIn animation */
+  opacity: 0;
+  -webkit-animation: fadeIn ease-in-out 1;
+  -moz-animation: fadeIn ease-in-out 1;
+  animation: fadeIn ease-in-out 1;
+
+  -webkit-animation-fill-mode: forwards;
+  -moz-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+
+  -webkit-animation-duration: 2s;
+  -moz-animation-duration: 2s;
+  animation-duration: 2s;
+
+  -webkit-animation-delay: 0.2s;
+  -moz-animation-delay: 0.2s;
+  animation-delay: 0.2s;
+  
+  z-index: -2;
+}
+
+.starChart {
+  height: 300vw;
+  position: fixed;
+  margin: -65vw 0 0 -100vw;
+  opacity: 0.6;
+  filter: drop-shadow(0 0 5px #FFD4);  /* blur on stars themselves drop-shadow(offset-x offset-y blur-radius color) */
+  -webkit-animation: starSpin infinite 600s linear;
+  -moz-animation: starSpin infinite 600s linear;
+  animation: starSpin infinite 600s linear;
+  
+  /* float: left; */
+}
+
+.zodiacLogotype {
+  position: absolute;
+  width: 100vw;
+  text-align: center;
+  margin-top: 4vw;
+  
+  font: 14vw dual, "Dual", "Futura", sans-serif;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #FFD;
+  text-shadow: 0 0 8px #2D3B62FF;
+  
+  /* fadeIn animation */
+  opacity: 0;
+	-webkit-animation: fadeIn ease-in-out 1;
+	-moz-animation: fadeIn ease-in-out 1;
+	animation: fadeIn ease-in-out 1;
+
+	-webkit-animation-fill-mode: forwards;
+	-moz-animation-fill-mode: forwards;
+	animation-fill-mode: forwards;
+
+	-webkit-animation-duration: 1s;
+	-moz-animation-duration: 1s;
+	animation-duration: 1s;
+  
+  -webkit-animation-delay: 0.6s;
+  -moz-animation-delay: 0.6s;
+  animation-delay: 0.6s;
+}
+
+.headerBodyGradient {
+  position: fixed;
+  height: 2vw;
+  width: 100vw;
+  background: linear-gradient(0deg, #2D3B62AA, #2D3B6200);
+  /* background-color: linear-gradient(0deg, #F00, #FF0); */
+  /* background-color: #2D3B6233; */
+  z-index: 1;
+  
+}
+
+.bodyBackground {
+  position: fixed;
+  top: 20vw;
+  height: 400vw;
+  width: 100vw;
+  overflow: hidden;
+  background-color: #2D3B62AA;
+  z-index: -1;
+}
+
+.headerBodyGradient, .bodyBackground {
+    
+  /* fadeIn animation */
+  opacity: 0;
+	-webkit-animation: fadeIn ease-in-out 1;
+	-moz-animation: fadeIn ease-in-out 1;
+	animation: fadeIn ease-in-out 1;
+
+	-webkit-animation-fill-mode: forwards;
+	-moz-animation-fill-mode: forwards;
+	animation-fill-mode: forwards;
+
+	-webkit-animation-duration: 2s;
+	-moz-animation-duration: 2s;
+	animation-duration: 2s;
+  
+  -webkit-animation-delay: 0.4s;
+  -moz-animation-delay: 0.4s;
+  animation-delay: 0.4s;
+}
+
+/* Fade in animation */
+@-webkit-keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@-moz-keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* Rotation animation for the stars */
+@-webkit-keyframes starSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@-moz-keyframes starSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes starSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }

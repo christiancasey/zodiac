@@ -1,0 +1,14 @@
+.form {
+  display: table;
+}
+.row {
+  font-size: inherit;
+  display: table-row;
+}
+.label {
+  display: table-cell;
+  padding: 5px 10px 0 0;
+}
+.input {
+  display: table-cell;
+}
