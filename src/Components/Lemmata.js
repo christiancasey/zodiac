@@ -1,7 +1,21 @@
 import React from "react";
 
-function Lemmata(props) {
+import styles from './Content.module.css';
+
+const Lemmata = props => {
   const lemmata = props.lemmata;
+  
+  if (!lemmata.length)
+    return (
+      <>
+        <h2>Lemmata</h2>
+        <div style={{opacity: 0.5}}>
+         <p>No lemmata match your search criteria.</p>
+         <p>Please adjust the settings above to find matches.</p>
+        </div>
+      </>
+    );
+  
   return (
     <>
       <h2>Lemmata</h2>
@@ -10,7 +24,7 @@ function Lemmata(props) {
           return (
             <li
               key={lemma.lemmaId}
-              className={"lemma-list" + (i==props.selectedLemmaIndex ? " selected" : "")}
+              className={"lemma-list" + (i===props.selectedLemmaIndex ? " selected" : "")}
             >
               <a href="#" className="lemma-list" onClick={() => props.selectNewLemma(i)}>
               {lemma.translation} {lemma.original}
@@ -20,6 +34,6 @@ function Lemmata(props) {
       </ol>
     </>
   );
-}
+};
 
 export default Lemmata;

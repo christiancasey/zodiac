@@ -2,45 +2,16 @@ import React from 'react';
 
 import styles from './Content.module.css';
 
+import Sidebar from './Sidebar';
 import LanguageList from './LanguageList';
-import Lemmata from './Lemmata';
 import Lemma from './Lemma';
+
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // FAKE DATA LOADING STUFF
+
 import DATA from '../Data/sample-data.json';
-
-const Sidebar = props => {
-  return (
-    <div className={styles.sidebar}>
-      <LanguageList
-        languages={props.languages}
-        selectLanguage={props.selectLanguage}
-      />
-      <Lemmata
-        lemmata={props.lemmata}
-        selectedLemmaIndex={props.selectedLemmaIndex}
-        selectNewLemma={props.selectNewLemma}
-      />
-    </div>
-  );
-};
-
-// The selected lemma needs to get passed down through something to update 
-// while also including the higher-level style
-const LemmaContainer = props => {
-  // return (
-  //   <div key={props.lemma} className={styles.lemma}>
-  //     <Lemma key={props.lemma} lemma={props.lemma} />
-  //   </div>
-  // );
-  return (
-    <div className={styles.lemma}>
-      <Lemma lemma={props.lemma} />
-    </div>
-  )
-};
-
 
 function loadLemmata() {
   let lemmata = null;
@@ -50,18 +21,52 @@ function loadLemmata() {
     lemmata = DATA.lemmata;
   }
   return lemmata || [];
-}
+};
+
+const languageOptions = [
+  { id: 1, value: 'akkadian', label: 'Akkadian' },
+  { id: 2, value: 'aramaic',  label: 'Aramaic' },
+  { id: 3, value: 'egyptian', label: 'Egyptian' },
+  { id: 4, value: 'greek',    label: 'Greek' },
+  { id: 5, value: 'hebrew',   label: 'Hebrew' },
+  { id: 6, value: 'latin',    label: 'Latin' },
+];
+
+const partOfSpeechOptions = [
+  { id: 1,	value: 'adjective',		 label: 'Adjective'},
+  { id: 2,	value: 'adverb',		   label: 'Adverb'},
+  { id: 3,	value: 'article',		   label: 'Article'},
+  { id: 4,	value: 'conjunction',	 label: 'Conjunction'},
+  { id: 5,	value: 'interjection', label: 'Interjection'},
+  { id: 6,	value: 'noun',			   label: 'Noun'},
+  { id: 7,	value: 'particle',		 label: 'Particle'},
+  { id: 8,	value: 'preposition',	 label: 'Preposition'},
+  { id: 9,	value: 'pronoun',		   label: 'Pronoun'},
+  { id: 10,	value: 'verb',			   label: 'Verb'},
+  { id: 11,	value: 'unknown',		   label: '❌ Unknown'},
+];
+
+// function loadLanguageOptions() {
+//   const languageOptions = [
+//     { label: 'Egyptian', value: 'egyptian' },
+//     { label: 'Greek', value: 'greek' },
+//   ];
+// 
+//   return languageOptions;
+// }
 // END FAKE DATA LOADING
 ////////////////////////////////////////////////////////////////////////////////
 
 
-const ANY_LANGUAGE_LABEL = 'All Languages';
+
+
+
 
 
 function Content(props) {
-  const [lemmata, setLemmata] = React.useState(getLemmata());
+  const [lemmata, setLemmata] = React.useState(loadLemmata());
   const [languages, setLanguages] = React.useState(getLanguageList(lemmata));
-  // const [selectedLemmaIndex, selectLemma] = React.useState(0);
+  const [selectedLemmaIndex, selectLemmaIndex] = React.useState(0);
   const [lemma, selectLemma] = React.useState(lemmata[0]);
   
   function getLemmata() {
@@ -71,28 +76,30 @@ function Content(props) {
     return loadLemmata(); // DELETE THIS WHEN REAL DATA
   }
   
+  // const languageOptions = loadLanguageOptions();
+  
   function getLanguageList(lemmata) {
     
-    // Create a list of languages present in the dataset
-    let languageNames = [];
-    lemmata.map(lemma => {
-      if (!languageNames.includes(lemma.language))
-        languageNames.push(lemma.language);
-    });
-    
-    // Sort list alphabetically (before assigning ids!)
-    // NB this sorts in reverse order now to show a result
-    languageNames.sort((a,b) => (a.name < b.name ? 1 : -1));
+    // // Create a list of languages present in the dataset
+    // let languageNames = [];
+    // lemmata.map(lemma => {
+    //   if (!languageNames.includes(lemma.language))
+    //     languageNames.push(lemma.language);
+    // });
+    // 
+    // // Sort list alphabetically (before assigning ids!)
+    // // NB this sorts in reverse order now to show a result
+    // languageNames.sort((a,b) => (a.name < b.name ? 1 : -1));
     
     // Flesh out the list of language names as proper objects for later use
-    let languages = languageNames.map((language, i) => {
+    let languages = languageOptions.map((language, i) => {
       return {
-        id: i,
-        name: language,
+        id: language.id,
+        label: language.label,
+        value: language.value,
         active: true,
       }
     });
-    
     return languages;
   }
   
@@ -108,7 +115,25 @@ function Content(props) {
   }
   
   function selectNewLemma(lemmaIndex) {
+    selectLemmaIndex(lemmaIndex);
     selectLemma(lemmata[lemmaIndex]);
+  }
+  
+  function saveLemma(newLemma) {
+    console.log(newLemma);
+    console.log(lemmata);
+    
+    const newLemmata = lemmata.map(lemma => {
+      if (lemma.lemmaId === newLemma.lemmaId) {
+        return newLemma;
+      }
+      return lemma;
+    })
+    setLemmata(newLemmata);
+    
+    
+    
+    localStorage.setItem("lemmata", JSON.stringify(newLemmata));
   }
   
   // Filter lemmata using language list
@@ -117,7 +142,7 @@ function Content(props) {
   // 2. that language is currently active
   const lemmataFiltered = lemmata.filter(lemma => 
     languages.some(language => 
-      (language.active && language.name == lemma.language)
+      (language.active && language.value == lemma.language)
     ));
   
   return (
@@ -125,11 +150,18 @@ function Content(props) {
       <Sidebar
         languages={languages}
         selectLanguage={selectLanguage}
-      
         lemmata={lemmataFiltered}
         selectNewLemma={selectNewLemma}
       />
-      <LemmaContainer lemma={lemma} />
+      
+      <div className={styles.lemma}>
+        <Lemma 
+          lemma={JSON.stringify(lemma)}
+          languageOptions={languageOptions}
+          partOfSpeechOptions={partOfSpeechOptions}
+          saveLemma={saveLemma}
+        />
+      </div>
     </div>
   );
 };

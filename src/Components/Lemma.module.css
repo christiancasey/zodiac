@@ -1,14 +1,81 @@
+* {
+  font-size: 1.2vw;
+}
+
 .form {
   display: table;
+  margin: 0;
 }
 .row {
   font-size: inherit;
   display: table-row;
+  margin: 0;
+  /* margin-top: 5px; */
 }
 .label {
   display: table-cell;
-  padding: 5px 10px 0 0;
+  padding: 0.5vw 1vw 0 0;
+  vertical-align: top;
+  /* text-transform: capitalize; */
+  /* color: #FFD8; */
 }
-.input {
+.input, .inputTransliteration, .inputWide, .inputTransliterationWide {
+  font: 1.2vw book-antiqua, 'Book Antiqua', serif;
   display: table-cell;
+  width: 13vw;
+  background-color: #2D3B6288;
+  color: #FFDC;
+  border: 0.1vw solid #FFD8;
+  border-radius: 0.5vw;
+  margin: 0.2vw;
+  padding: 0.2vw;
+  /* margin-top: 5px;
+  margin-right: 5px; */
+}
+.inputTransliteration, .inputTransliterationWide {
+  font-style: italic;
+}
+.input:disabled {
+  color: #FFD6;
+}
+.inputWide, .inputTransliterationWide {
+  width: 50vw;
+}
+.label:focus, .input:focus, .inputWide:focus, .inputTransliteration:focus, .inputTransliteration:focus, .inputTransliterationWide:focus  {
+  color: #FFE;
+  outline: none;
+  border-color: #FFE;
+}
+.box, .meanings, .variants, .quotations {
+  /* height: calc(100% - 20px); */
+  height: 22vw;
+  width: 30vw;
+  overflow: scroll;
+  float: left;
+  margin: 1vw;
+  padding-left: 0.5vw;
+  
+  /* padding: 10px; */
+  background-color: #2D3B6266;
+  border: 1px solid #FFD8;
+  box-shadow: 0 0 3px #2D3B62FF, 0 0 3px #2D3B62FF inset;
+  /* box-shadow: 0 0 5px #FFD8, 0 0 3px #2D3B6200 inset; */
+  border-radius: 10px;
+}
+.meanings, .variants {
+  height: 10vw;
+  /* width: 31vw; */
+}
+.quotations {
+  width: 62vw;
+}
+.quotationsList {
+  margin-bottom: 3vw;
+}
+
+
+
+.developmentData {
+  /* visibility: hidden;
+  display: none; */
 }

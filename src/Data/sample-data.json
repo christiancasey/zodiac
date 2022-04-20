@@ -4,25 +4,30 @@
     {
       "lemmaId": 1,
       "translation": "sheep",
-      "language": "Egyptian",
+      "language": "egyptian",
       "original": "𓃝",
       "transliteration": "ỉsw",
       "partOfSpeech": "noun",
       "meanings": [
-        "Aries", "Ram", "Sheep"
+        {"id": 1, "value": "Aries"},
+        {"id": 2, "value": "Ram"}, 
+        {"id": 3, "value": "Sheep"}
       ],
       "variants": [
         {
+          "id": 1,
           "original": "𓊃𓂋𓄛",
           "transliteration": "sr"
         },
         {
+          "id": 2,
           "original": "𓁶",
           "transliteration": "tpy"
         }
       ],
       "quotations": [
         {
+          "id": 1,
           "original": "",
           "transliteration": "ỉbd 2 pr.t pꜣ ỉsw",
           "translation": "Month 2 of Peret (Mecheir): Aries",
@@ -33,6 +38,7 @@
           "publication": "O.Neugebauer, “Demotic Horoscopes”, JAOS 63 (1943), 121–121 (115–127)."
         },
         {
+          "id": 2,
           "original": "",
           "transliteration": "pꜣ rꜥ-ḫꜥ tꜣ ỉḫy(.t) | rꜥ-ḥtp pꜣ ỉsw",
           "translation": "Ascendant: Libra; Descendant: Aries",
@@ -47,16 +53,18 @@
     {
       "lemmaId": 2,
       "translation": "ram",
-      "language": "Greek",
+      "language": "greek",
       "original": "κριός",
       "transliteration": "krios",
       "partOfSpeech": "noun",
       "meanings": [
-        "Aries (zodiac sign)", "Aries (constellation)"
+        {"id": 1, "value": "Aries (zodiac sign)"}, 
+        {"id": 2, "value": "Aries (constellation)"}
       ],
       "variants": [],
       "quotations": [
         {
+          "id": 1,
           "original": "ζωϊδίων δέ ἑ κύκλον ἐπίκλησιν καλέουσιν  τῷ ἔνι Καρκίνος ἐστί, Λέων ἐπὶ τῷ, μετὰ δ’ αὐτὸν Παρθένος  αἱ δ’ ἐπί οἱ Χηλαὶ καὶ Σκορπίος αὐτὸς Τοξευτής τε καὶ Αἰγόκερως, ἐπὶ δ’ Αἰγοκερῆϊ Ὑδροχόος  δύο δ’ αὐτῷ ἔπ’ Ἰχθύες ἀστερόεντες, τοὺς δὲ μέτα Κριός, Ταῦρος δ’ ἐπὶ τῷ Δίδυμοί τε. ἐν τοῖς ἠέλιος φέρεται δυοκαίδεκα πᾶσιν πάντ’ ἐνιαυτὸν ἄγων, καί οἱ περὶ τοῦτον ἰόντι κύκλον ἀέξονται πᾶσαι ἐπικάρπιοι ὧραι.",
           "transliteration": "",
           "translation": "They call it (sc. the ecliptic) by the name 'Circle of the figurines' (zōdiōn kyklos, i.e. the zodiac): in it is Cancer, after that there is Leo, after that is Virgo, and after that, the Claws and Scorpio itself, Sagittarius and Capricorn, and after Capricorn, Aquarius, and after it, the two stary Fish (i.e. Pisces), and after them Aries, and after it Taurus and Gemini. In all twelve of them the Sun moves along as it passes each year, and as it goes around this circle, all the seasons wax fruitful.",
@@ -67,6 +75,7 @@
           "publication": ""
         },
         {
+          "id": 2,
           "original": "τῷ δὲ μηνὶ τῷ Ξανθικῷ, ὃς Νισὰν παρ’ ἡμῖν καλεῖται καὶ τοῦ ἔτους ἐστὶν ἀρχή, τεσσαρεσκαιδεκάτῃ κατὰ σελήνην ἐν κριῷ τοῦ ἡλίου καθεστῶτος  τούτῳ γὰρ τῷ μηνὶ τῆς ὑπ’ Αἰγυπτίους δουλείας ἠλευθερώθημεν",
           "transliteration": "",
           "translation": "(The sacrifice of pascha is celebrated) in the month of Xanthikos, which among us (sc. Jews) is called Nisan and is the beginning of the year, on the fourteenth (of the month) according to the Moon, when the Sun is in Aries—for in this month we were liberated from servitude to Egyptians",
@@ -77,6 +86,7 @@
           "publication": ""
         },
         {
+          "id": 3,
           "original": "Κριός ἐστιν οἶκος Ἄρεως, ζῴδιον ἀρρενικόν, τροπικόν, χερσαῖον, ἡγεμονικόν, πυρῶδες, ἐλεύθερον, ἀνωφερές, ἡμίφωνον, ἀγαθόν, εὐμετάβολον, διοικητικόν, δημόσιον, πολιτικόν, ὀλιγόγονον, λατρῶδες, κόσμου μεσουράνημα καὶ δόξης αἴτιον, δίχρωμον ἐπεὶ ὁ Ἥλιος καὶ ἡ Σελήνη ποιοῦσιν ἀλφούς, λειχῆνας  ἔστι δὲ καὶ ἀσύνδετον, ἐκλειπτικόν",
           "transliteration": "",
           "translation": "Aries is a house of Ares, a masculine zodiac-sign, tropic, of dry-land, hegemonic, of fire, of free men, ascending, semi-voiced, good, variable, controlling, of the (common) people, political, of low fertility, servile, the midheaven of the cosmos and a source of glory, two-colored when Sun and Moon produce spots (and) cankers; it is also non-conjunctive, ecliptic",

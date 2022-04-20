@@ -5,7 +5,7 @@ function LanguageItem(props) {
     <li>
       <input type="checkbox" checked={props.language.active} onChange={() => props.selectLanguage(props.language.id)} />
       &nbsp;
-      {props.language.name}
+      {props.language.label}
     </li>
   );
 }

@@ -4,13 +4,14 @@
   height: calc(100% - 20vw);
   top: 20vw;
   overflow: scroll;
-  padding: 10px;
+  
+  padding: 0.5vw;
   
   background-color: #0000;
   color: #FFD;
   
-  font: 14pt book-antiqua, 'Book Antiqua', serif;
-  text-shadow: 0 0 3px #FFD3;
+  font: 1.4vw book-antiqua, 'Book Antiqua', serif;
+  text-shadow: 0 0 3px #FFD2;
   
   opacity: 0;
   -webkit-animation: fadeIn ease-in-out 1;
@@ -39,23 +40,24 @@
   
   overflow: scroll;
   float: left;
-  margin: 10px;
+  margin: 1vw;
   
-  padding: 0 10px;
+  padding: 0 0.5vw;
   background-color: #2D3B62CC;
   border: 2px solid #FFDF;
-  /* box-shadow: 0 0 5px #FFDF, 0 0 3px #FFDF inset; */
   box-shadow: 0 0 5px #2D3B62FF, 0 0 3px #2D3B62FF inset;
-  border-radius: 5px;
+  border-radius: 15px;
+  
+  /* display: flex; */
 }
 
 .sidebar {
-  width: calc(30vw - 30px);
+  width: 28vw;
 }
 
 
 .lemma {
-  width: calc(70vw - 30px);
+  width: 67vw;
 }
 
 @font-face {
@@ -73,10 +75,16 @@ h1, h2, h3, h4 {
   margin: 10px 0 10px 0;
 }
 h1, .lemmaTitle {
-  font-size: 20pt;
+  font-size: 2vw;
 }
 h2 {
-  font-size: 18pt;
+  font-size: 1.8vw;
+}
+h3 {
+  font-size: 1.6vw;
+}
+h3 {
+  font-size: 1.4vw;
 }
 
 code {
@@ -97,6 +105,16 @@ ol, li {
 ol {
   margin: 5px 0 20px 0;
 }
+
+.addNewLemma {
+  position: fixed;
+  bottom: 20px;
+  /* height: 4vw; */
+  /* background-color: #FFD8; */
+  margin: 10px auto;
+}
+
+
 
 /* Fade in animation */
 @-webkit-keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
