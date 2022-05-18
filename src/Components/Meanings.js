@@ -1,23 +1,14 @@
 import React from "react";
-import { v4 as uuidv4 } from "uuid";
+import { IoIosAddCircle } from "react-icons/io";
+// import { v4 as uuidv4 } from "uuid";
 
 import styles from './Lemma.module.css';
 
 import Meaning from './Meaning';
 
 const Meanings = props => {
-  const [meanings, setMeanings] = React.useState(props.meanings);
-  
-  const addNewMeaning = e => {
-    const newMeaning = {
-      id: uuidv4(),
-      meaning: '',
-    };
-    
-    setMeanings(prevMeanings => [...prevMeanings, newMeaning]);
-    
-    console.log('add new meaning');
-  };
+  // const [meanings, setMeanings] = React.useState(props.meanings);
+  const meanings = props.meanings;
   
   return (
     <div className={styles.meanings}>
@@ -29,10 +20,11 @@ const Meanings = props => {
             meaning={meaning}
             i={i}
             updateMeaning={props.updateMeaning}
+            deleteMeaning={props.deleteMeaning}
           />
         )
       })}
-      <button onClick={() => addNewMeaning()}>New</button>
+      <button className={styles.add} onClick={props.addNewMeaning}><IoIosAddCircle /></button>
     </div>
   );
 };

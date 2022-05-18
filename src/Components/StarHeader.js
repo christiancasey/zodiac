@@ -3,6 +3,7 @@ import React from 'react';
 import styles from './StarHeader.module.css';
 
 import zodiacConstellations from '../Graphics/zodiac_constellations.svg';
+import zodiacLogo from '../Graphics/zodiac_logo.svg';
 
 const StarHeader = () => {
   return (
@@ -13,7 +14,9 @@ const StarHeader = () => {
           src={zodiacConstellations}
           alt="Star chart with zodiac constellations"
         />
-        <h1 className={styles.zodiacLogotype}>Zodiac</h1>
+        <h1 className={styles.zodiacLogotype}>
+          Zodiac
+        </h1>
       </header>
       <div className={styles.headerBodyGradient}></div>
       <div className={styles.bodyBackground}></div>
@@ -22,3 +25,5 @@ const StarHeader = () => {
 };
 
 export default StarHeader;
+
+// <img src={zodiacLogo} style={{height: '5vw'}} alt="Zodiac logo"/>

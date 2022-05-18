@@ -1,13 +1,28 @@
-import styles from './Lemma.module.css';
+import React from 'react';
 
+import styles from './Lemma.module.css';
+import { IoIosTrash } from "react-icons/io";
 
 const Quotation = props => {
   const quotation = props.quotation;
   const i = props.i;
   
+  const [style, setStyle] = React.useState({display: 'none'});
+  
   return (
-    <div className={styles.quotationsList}>
-      <h4>{i+1}</h4>
+    <div 
+      className={styles.quotationsList}
+      onMouseEnter={e => {
+        setStyle({display: 'block'});
+      }}
+      onMouseLeave={e => {
+        setStyle({display: 'none'});
+      }}
+    >
+      <h4>
+        {i+1}
+      </h4>
+      
       <div className={styles.row}>
         <label className={styles.label} htmlFor={"original_"+quotation.id}>Original</label>
         <textarea
@@ -92,6 +107,9 @@ const Quotation = props => {
           value={quotation.publication}
           onChange={e => props.updateQuotation("publication", e.target.value, quotation.id)} 
         />
+      </div>
+      <div className={styles.row}>
+      <button className={styles.add} style={style} onClick={() => props.deleteQuotation(quotation.id)}><IoIosTrash /></button>
       </div>
     </div>
   );

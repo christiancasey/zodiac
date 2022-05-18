@@ -9,6 +9,7 @@ const App = () => {
     <>
       <StarHeader />
       <Content />
+      
     </>
   )
 };

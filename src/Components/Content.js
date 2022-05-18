@@ -1,4 +1,5 @@
 import React from 'react';
+import { v4 as uuidv4 } from "uuid";
 
 import styles from './Content.module.css';
 
@@ -6,7 +7,7 @@ import Sidebar from './Sidebar';
 import LanguageList from './LanguageList';
 import Lemma from './Lemma';
 
-
+import searchLemmata from './searchLemmata';
 
 ////////////////////////////////////////////////////////////////////////////////
 // FAKE DATA LOADING STUFF
@@ -46,50 +47,26 @@ const partOfSpeechOptions = [
   { id: 11,	value: 'unknown',		   label: '❌ Unknown'},
 ];
 
-// function loadLanguageOptions() {
-//   const languageOptions = [
-//     { label: 'Egyptian', value: 'egyptian' },
-//     { label: 'Greek', value: 'greek' },
-//   ];
-// 
-//   return languageOptions;
-// }
-// END FAKE DATA LOADING
-////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
-
-function Content(props) {
+const Content = props => {
   const [lemmata, setLemmata] = React.useState(loadLemmata());
   const [languages, setLanguages] = React.useState(getLanguageList(lemmata));
-  const [selectedLemmaIndex, selectLemmaIndex] = React.useState(0);
   const [lemma, selectLemma] = React.useState(lemmata[0]);
+  const [search, updateSearch] = React.useState('');
   
-  function getLemmata() {
-    // RECREATE THIS FOR WORKING WITH REAL DATA
-    // const savedLemmata = JSON.parse(localStorage.getItem('lemmata'));
-    // return savedLemmata || [];
-    return loadLemmata(); // DELETE THIS WHEN REAL DATA
-  }
+  const [changed, setChanged] = React.useState(false);
+  
+  const [keyboard, setKeyboard] = React.useState(false);
+  
+  // function getLemmata() {
+  //   // RECREATE THIS FOR WORKING WITH REAL DATA
+  //   // const savedLemmata = JSON.parse(localStorage.getItem('lemmata'));
+  //   // return savedLemmata || [];
+  //   return loadLemmata(); // DELETE THIS WHEN REAL DATA
+  // }
   
   // const languageOptions = loadLanguageOptions();
   
   function getLanguageList(lemmata) {
-    
-    // // Create a list of languages present in the dataset
-    // let languageNames = [];
-    // lemmata.map(lemma => {
-    //   if (!languageNames.includes(lemma.language))
-    //     languageNames.push(lemma.language);
-    // });
-    // 
-    // // Sort list alphabetically (before assigning ids!)
-    // // NB this sorts in reverse order now to show a result
-    // languageNames.sort((a,b) => (a.name < b.name ? 1 : -1));
     
     // Flesh out the list of language names as proper objects for later use
     let languages = languageOptions.map((language, i) => {
@@ -105,7 +82,7 @@ function Content(props) {
   
   function selectLanguage(languageId) {
     setLanguages(prevLanguages => languages.map(language => {
-      if (language.id == languageId)
+      if (language.id === languageId)
         return {
           ...language,
           active: !language.active,
@@ -114,14 +91,23 @@ function Content(props) {
     }));
   }
   
-  function selectNewLemma(lemmaIndex) {
-    selectLemmaIndex(lemmaIndex);
-    selectLemma(lemmata[lemmaIndex]);
+  function selectNewLemma(lemmaId) {
+    
+    // Selecting should simply do nothing if the lemma clicked is already displayed
+    // The Lemma component doesn't update when the same lemma is selected again
+    // Ignoring the click prevents the save-state from becoming invalid if there are changes
+    // Otherwise, clicking the same lemma marks it as unchanged, even when that's not true
+    if (lemma.lemmaId == lemmaId)
+      return;
+    
+    setChanged(false);
+    setKeyboard(false);
+    
+    selectLemma(lemmata.find(lemma => lemma.lemmaId === lemmaId));
   }
   
   function saveLemma(newLemma) {
-    console.log(newLemma);
-    console.log(lemmata);
+    setChanged(false);
     
     const newLemmata = lemmata.map(lemma => {
       if (lemma.lemmaId === newLemma.lemmaId) {
@@ -131,37 +117,95 @@ function Content(props) {
     })
     setLemmata(newLemmata);
     
-    
-    
+    // REPLACE WITH A PROPER LAMBDA FUNCTION CALL
     localStorage.setItem("lemmata", JSON.stringify(newLemmata));
   }
+  
+  const addNewLemma = () => {
+    const newLemma = {
+      lemmaId: uuidv4(),
+      translation: '?',
+      language: 'akkadian',
+      original: '?',
+      transliteration: '?',
+      partOfSpeech: 'noun',
+      meanings: [],
+      variants: [],
+      quotations: [],
+    };
+    setLemmata(prevLemmata => {
+      return [...lemmata, newLemma];
+    });
+    selectLemma(newLemma);
+    setKeyboard(false);
+  };
+  
+  const deleteLemma = lemmaId => {
+    
+    // Don't delete the very last lemma or everything fubars
+    if (lemmata.length <= 1)
+      return;
+    
+    const newLemmata = lemmata.filter(lemma => {
+      if (lemma.lemmaId !== lemmaId)
+        return lemma;
+    });
+    setLemmata(newLemmata);
+    selectLemma(newLemmata[0]);
+    
+    // REPLACE WITH A PROPER LAMBDA FUNCTION CALL
+    localStorage.setItem("lemmata", JSON.stringify(newLemmata));
+  }
+  
+  const searchKeyClick = key => {
+    if (key === 'delete') {
+      // Array conversion needed to deal with two-byte Unicode characters
+      updateSearch(prevSearch => Array.from(prevSearch).slice(0, -1).join(''));
+    } else {
+      updateSearch(prevSearch => prevSearch + key);
+    }
+  };
   
   // Filter lemmata using language list
   // Keep a lemma in the filtered list iff:
   // 1. its language is in the list of languages (which must be true by definition)
   // 2. that language is currently active
-  const lemmataFiltered = lemmata.filter(lemma => 
+  let lemmataFiltered = lemmata.filter(lemma => 
     languages.some(language => 
       (language.active && language.value == lemma.language)
     ));
   
+  if (search) {
+    // Search function stored in separate module: searchLemmata.js
+    lemmataFiltered = searchLemmata(lemmataFiltered, search);
+  }
+  
   return (
     <div className={styles.content}>
       <Sidebar
+        updateSearch={updateSearch}
+        searchKeyClick={searchKeyClick}
+        value={search}
         languages={languages}
         selectLanguage={selectLanguage}
         lemmata={lemmataFiltered}
         selectNewLemma={selectNewLemma}
+        addNewLemma={addNewLemma}
+        keyboard={keyboard}
+        setKeyboard={setKeyboard}
       />
-      
       <div className={styles.lemma}>
         <Lemma 
           lemma={JSON.stringify(lemma)}
+          changed={changed}
+          setChanged={setChanged}
           languageOptions={languageOptions}
           partOfSpeechOptions={partOfSpeechOptions}
           saveLemma={saveLemma}
+          deleteLemma={deleteLemma}
         />
       </div>
+      {false?<a target="_blank" href="https://docs.google.com/document/d/15zpbt8L9lAS6WryYa8q5eK81gCJKsZDGLPvRzRc7UcA/edit#">Feedback form</a>:<></>}
     </div>
   );
 };

@@ -1,4 +1,7 @@
 import styles from './Lemma.module.css';
+import { IoIosAddCircle } from "react-icons/io";
+
+import Variant from './Variant';
 
 const Variants = props => {
   return (
@@ -6,28 +9,16 @@ const Variants = props => {
       <h3>Variants</h3>
       {props.variants.map((variant,i) => {
         return (
-          <div key={variant.id} className={styles.row}>
-            <label className={styles.label} htmlFor={"original_"+variant.id}>{i+1}</label>
-            <input
-              className={styles.input}
-              type="text"
-              name={"original_"+variant.id}
-              placeholder="original"
-              value={variant.original}
-              onChange={e => props.updateVariant("original", e.target.value, variant.id)} 
-            />
-            <input
-              style={{float: 'right'}}
-              className={styles.inputTransliteration}
-              type="text"
-              name={"transliteration_"+variant.id}
-              placeholder="transliteration"
-              value={variant.transliteration}
-              onChange={e => props.updateVariant("transliteration", e.target.value, variant.id)} 
-            />
-          </div>
+          <Variant
+            key={variant.id}
+            variant={variant}
+            i={i}
+            updateVariant={props.updateVariant}
+            deleteVariant={props.deleteVariant}
+          />
         )
       })}
+      <button className={styles.add} onClick={props.addNewVariant}><IoIosAddCircle /></button>
     </div>
   );
 };

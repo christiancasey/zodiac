@@ -19,18 +19,46 @@
   /* text-transform: capitalize; */
   /* color: #FFD8; */
 }
-.input, .inputTransliteration, .inputWide, .inputTransliterationWide {
+.input, .inputSearch, .inputTransliteration, .inputWide, .inputTransliterationWide {
   font: 1.2vw book-antiqua, 'Book Antiqua', serif;
   display: table-cell;
-  width: 13vw;
+  width: 12vw;
   background-color: #2D3B6288;
   color: #FFDC;
   border: 0.1vw solid #FFD8;
   border-radius: 0.5vw;
   margin: 0.2vw;
   padding: 0.2vw;
+  outline: none;
+  float: left;
   /* margin-top: 5px;
   margin-right: 5px; */
+}
+.inputSearch {
+  font: 1.2vw book-antiqua, 'Book Antiqua', serif;
+  background-color: #2D3B6288;
+  color: #FFDC;
+  border: 0.1vw solid #FFD8;
+  margin: 0.2vw 0 0.2vw 0.2vw;
+  padding: 0.2vw;
+  outline: none;
+  height: 2vw;
+  border-radius: 0.5vw 0 0 0.5vw;
+  width: 23.2vw;
+}
+.searchKeyboard {
+  background-color: #2D3B6288;
+  color: #FFDC;
+  border: 0.1vw solid #FFD8;
+  margin: 0.2vw 0 0 -0.1vw;
+  padding: 0.2vw;
+  outline: none;
+  height: 2vw;
+  border-radius: 0 0.5vw 0.5vw 0;
+  width: 2.8vw;
+}
+.searchKeyboard:hover {
+  background-color: #FFD4;
 }
 .inputTransliteration, .inputTransliterationWide {
   font-style: italic;
@@ -38,15 +66,28 @@
 .input:disabled {
   color: #FFD6;
 }
-.inputWide, .inputTransliterationWide {
+.inputWide, .inputTransliterationWide, .inputDelete {
   width: 50vw;
+}
+.inputDelete {
+  font: 1.2vw book-antiqua, 'Book Antiqua', serif;
+  display: table-cell;
+  width: 60vw;
+  background-color: #2D3B6288;
+  color: #F00C;
+  border: 0.1vw solid #F008;
+  border-radius: 0.5vw;
+  margin: 0.2vw;
+  padding: 0.2vw;
+  outline: none;
+  margin-bottom: 1vw;
 }
 .label:focus, .input:focus, .inputWide:focus, .inputTransliteration:focus, .inputTransliteration:focus, .inputTransliterationWide:focus  {
   color: #FFE;
   outline: none;
   border-color: #FFE;
 }
-.box, .meanings, .variants, .quotations {
+.basic, .meanings, .variants, .quotations, .deleteLemma {
   /* height: calc(100% - 20px); */
   height: 22vw;
   width: 30vw;
@@ -59,23 +100,66 @@
   background-color: #2D3B6266;
   border: 1px solid #FFD8;
   box-shadow: 0 0 3px #2D3B62FF, 0 0 3px #2D3B62FF inset;
-  /* box-shadow: 0 0 5px #FFD8, 0 0 3px #2D3B6200 inset; */
   border-radius: 10px;
+}
+.basic {
+  height: 22vw;
 }
 .meanings, .variants {
   height: 10vw;
-  /* width: 31vw; */
 }
-.quotations {
+.quotations, .deleteLemma {
   width: 62vw;
+}
+.deleteLemma {
+  color: red;
+  height: auto;
+  padding-bottom: 1vw;
+  cursor: pointer;
 }
 .quotationsList {
   margin-bottom: 3vw;
 }
-
+.delete, .add {
+  color: #ffef;
+  background: #fff0;
+  border: none;
+  outline: none;
+  margin-top: 0.5vw;
+}
+.add {
+  float: left;
+}
+.delete {
+  float: right;
+}
+.delete:hover, .add:hover {
+  filter:drop-shadow(0 0 3px #ffe8);
+}
 
 
 .developmentData {
   /* visibility: hidden;
   display: none; */
+}
+
+.keyboard {
+  position: absolute;
+  background-color: white;
+  margin: auto;
+  left: 30vw;
+  top: 0vw;
+  width: 50vw;
+  height: 20vw;
+  
+  
+  overflow: scroll;
+  /* float: left;
+  margin: 1vw; */
+  
+  padding: 0.5vw 0.5vw;
+  background-color: #2D3B62F0;
+  border: 2px solid #FFDF;
+  box-shadow: 0 0 5px #2D3B62FF, 0 0 3px #2D3B62FF inset;
+  border-radius: 15px;
 }

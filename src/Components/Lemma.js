@@ -1,4 +1,5 @@
 import React from "react";
+import { IoMdSave } from "react-icons/io";
 import { v4 as uuidv4 } from "uuid";
 
 import styles from './Lemma.module.css';
@@ -7,16 +8,40 @@ import Dropdown from './Dropdown';
 import Meanings from './Meanings';
 import Variants from './Variants';
 import Quotations from './Quotations';
+import DeleteLemma from './DeleteLemma';
 
-let Lemma = props => {
+
+const DEBUG = false;
+// let props.setChanged(false);
+
+const Lemma = props => {
   
   const [lemma, setLemma] = React.useState(JSON.parse(props.lemma));
-  // const [meanings, setMeanings] = React.useState(props.lemma.meanings);
-  // const [variants, setVariants] = React.useState(props.lemma.variants);
   
-  React.useEffect(() => { setLemma(JSON.parse(props.lemma)); }, [props.lemma]);
-  // React.useEffect(() => { setMeanings(props.lemma.meanings); }, [props.lemma.meanings]);
-  // React.useEffect(() => { setVariants(props.lemma.variants); }, [props.lemma.variants]);
+  
+  React.useEffect(() => { 
+    setLemma(JSON.parse(props.lemma));
+  }, [props.lemma]);
+  
+  
+  // Keyboard shortcuts
+  const handleKeyPress = e => {
+    // Meta keys
+    if (e.ctrlKey || e.metaKey) {
+      // Save shortcuts (ctrl+s and cmd+s)
+      if (e.key === 's') {
+        e.preventDefault();
+        props.setChanged(false);
+        saveLemma();
+      }
+    }
+  };
+  React.useEffect(() => {
+    document.addEventListener('keydown', handleKeyPress);
+    return () => {
+      document.removeEventListener('keydown', handleKeyPress);
+    };
+  });
   
   const onChange = e => {
     setLemma(prevLemma => {
@@ -25,17 +50,10 @@ let Lemma = props => {
         [e.target.name]: e.target.value,
       }
     });
+    props.setChanged(true);
   };
   
   const updateMeaning = (updatedMeaning, id) => {
-    // setMeanings(
-    //   meanings.map(meaning => {
-    //     if (meaning.id === id) {
-    //       meaning.value = updatedMeaning;
-    //     }
-    //     return meaning;
-    //   })
-    // );
     setLemma(prevLemma => {
       return {
         ...prevLemma,
@@ -47,6 +65,39 @@ let Lemma = props => {
         })
       }
     });
+    props.setChanged(true);
+  };
+  
+  const deleteMeaning = id => {
+    setLemma(prevLemma => {
+      return {
+        ...prevLemma,
+        meanings: prevLemma.meanings.filter(meaning => {
+          return meaning.id !== id;
+        }),
+      };
+    });
+    props.setChanged(true);
+  };
+  
+  const addNewMeaning = e => {
+    e.preventDefault();
+    
+    const newMeaning = {
+      id: uuidv4(),
+      value: '',
+    };
+    
+    setLemma(prevLemma => {
+      return {
+        ...prevLemma,
+        meanings: [
+          ...prevLemma.meanings,
+          newMeaning
+        ]
+      };
+    });
+    props.setChanged(true);
   };
   
   const updateVariant = (key, updatedVariant, id) => {
@@ -61,6 +112,40 @@ let Lemma = props => {
         })
       }
     });
+    props.setChanged(true);
+  };
+  
+  const deleteVariant = id => {
+    setLemma(prevLemma => {
+      return {
+        ...prevLemma,
+        variants: prevLemma.variants.filter(variant => {
+          return variant.id !== id;
+        }),
+      };
+    });
+    props.setChanged(true);
+  };
+  
+  const addNewVariant = e => {
+    e.preventDefault();
+    
+    const newVariant = {
+      id: uuidv4(),
+      original: '',
+      transliteration: '', 
+    };
+    
+    setLemma(prevLemma => {
+      return {
+        ...prevLemma,
+        variants: [
+          ...prevLemma.variants,
+          newVariant
+        ]
+      };
+    });
+    props.setChanged(true);
   };
   
   const updateQuotation = (key, updatedQuotation, id) => {
@@ -75,13 +160,50 @@ let Lemma = props => {
         })
       }
     });
+    props.setChanged(true);
   };
   
-  const resetLemma = () => {
-    setLemma(JSON.parse(props.lemma));
-  }
+  const deleteQuotation = id => {
+    setLemma(prevLemma => {
+      return {
+        ...prevLemma,
+        quotations: prevLemma.quotations.filter(quotation => {
+          return quotation.id !== id;
+        }),
+      };
+    });
+    props.setChanged(true);
+  };
+  
+  const addNewQuotation = e => {
+    e.preventDefault();
+    
+    const newQuotation = {
+      id: uuidv4(),
+      original: '',
+      transliteration: '',
+      translation: '',
+      source: '',
+      genre: '',
+      provenance: '',
+      date: '',
+      publication: '',
+    }
+    
+    setLemma(prevLemma => {
+      return {
+        ...prevLemma,
+        quotations: [
+          ...prevLemma.quotations,
+          newQuotation
+        ]
+      };
+    });
+    props.setChanged(true);
+  };
   
   const saveLemma = () => {
+    props.setChanged(false);
     props.saveLemma(lemma);
   };
     
@@ -98,9 +220,12 @@ let Lemma = props => {
   
   return (
     <div>
-      <h1>Lemma</h1>
+      <h1>
+        {props.changed ? <i>Lemma (unsaved)</i> : 'Lemma'}
+        <button className={styles.delete} onClick={() => saveLemma()}><IoMdSave /></button>
+      </h1>
       <form className={styles.form}>
-        <div className={styles.box}>
+        <div className={styles.basic}>
           <h3>Basic</h3>
           <div className={styles.row}>
             <label className={styles.label} htmlFor="lemmaId">Lemma ID</label>
@@ -135,25 +260,33 @@ let Lemma = props => {
           </div>
         </div>
         
-        <Meanings meanings={lemma.meanings} updateMeaning={updateMeaning} />
+        <Meanings
+          meanings={lemma.meanings}
+          updateMeaning={updateMeaning}
+          addNewMeaning={addNewMeaning}
+          deleteMeaning={deleteMeaning}
+        />
         
-        <Variants variants={lemma.variants} updateVariant={updateVariant} />
+        <Variants
+          variants={lemma.variants}
+          updateVariant={updateVariant}
+          addNewVariant={addNewVariant}
+          deleteVariant={deleteVariant}
+        />
         
-        <Quotations quotations={lemma.quotations} updateQuotation={updateQuotation} />
+        <Quotations
+          quotations={lemma.quotations}
+          updateQuotation={updateQuotation}
+          addNewQuotation={addNewQuotation}
+          deleteQuotation={deleteQuotation}
+        />
         
       </form>
         
-      
-      
-      
-      <br /><br />
+      <DeleteLemma lemma={lemma} deleteLemma={props.deleteLemma} />
+            
       <div className={styles.developmentData} style={{opacity: 0.7, color: '#2d2'}}>
-        <b>Development stuff. Ignore everything below...</b>
-        <br /><br />
-        <button onClick={resetLemma}>Reset</button>
-        <button onClick={saveLemma}>Save</button>
-        <br /><br />
-        <pre id="json">{JSON.stringify(lemma, null, 2)}</pre>
+        <pre id="json">{DEBUG ? JSON.stringify(lemma, null, 2) : ''}</pre>
       </div>
     </div>
   );

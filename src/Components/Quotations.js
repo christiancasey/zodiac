@@ -1,4 +1,5 @@
 import React from "react";
+import { IoIosAddCircle } from "react-icons/io";
 import { v4 as uuidv4 } from "uuid";
 
 import styles from './Lemma.module.css';
@@ -18,10 +19,6 @@ const Quotations = props => {
     publication: '',
   };
   
-  const addNewQuotation = e => {
-    console.log(newQuotation);
-  }
-  
   return (
     <div className={styles.quotations}>
       <h3>Quotations</h3>
@@ -31,12 +28,13 @@ const Quotations = props => {
             key={quotation.id} 
             quotation={quotation} 
             i={i} 
-            updateQuotation={props.updateQuotation} 
+            updateQuotation={props.updateQuotation}
+            deleteQuotation={props.deleteQuotation}
           />
         )
       })}
       
-      <button onClick={() => addNewQuotation()}>New</button>
+      <button className={styles.add} onClick={props.addNewQuotation}><IoIosAddCircle /></button>
       
       
     </div>
