@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/zodiac/static/css/main.7d72e603.css",
-    "main.js": "/zodiac/static/js/main.d18bc42f.js",
+    "main.css": "/zodiac/static/css/main.a969b6c8.css",
+    "main.js": "/zodiac/static/js/main.db6bce2f.js",
     "static/media/zodiac_constellations.svg": "/zodiac/static/media/zodiac_constellations.3a4151b20bc964ee035d11b5b42ca7b6.svg",
     "static/media/book-antiqua.woff": "/zodiac/static/media/book-antiqua.c3a93505f03752ea97d4.woff",
     "static/media/dual.woff": "/zodiac/static/media/dual.f86fac4850e9a2a82852.woff",
     "static/media/zodiac_logo.svg": "/zodiac/static/media/zodiac_logo.4dd78506942b3b73f6959c1af4464a42.svg",
     "index.html": "/zodiac/index.html",
-    "main.7d72e603.css.map": "/zodiac/static/css/main.7d72e603.css.map",
-    "main.d18bc42f.js.map": "/zodiac/static/js/main.d18bc42f.js.map"
+    "main.a969b6c8.css.map": "/zodiac/static/css/main.a969b6c8.css.map",
+    "main.db6bce2f.js.map": "/zodiac/static/js/main.db6bce2f.js.map"
   },
   "entrypoints": [
-    "static/css/main.7d72e603.css",
-    "static/js/main.d18bc42f.js"
+    "static/css/main.a969b6c8.css",
+    "static/js/main.db6bce2f.js"
   ]
 }
