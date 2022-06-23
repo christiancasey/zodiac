@@ -1,6 +1,7 @@
 import React from "react";
 import { IoMdSave } from "react-icons/io";
 import { v4 as uuidv4 } from "uuid";
+import ReactTooltip from 'react-tooltip';
 
 import styles from './Lemma.module.css';
 
@@ -44,12 +45,21 @@ const Lemma = props => {
   });
   
   const onChange = e => {
-    setLemma(prevLemma => {
-      return {
-        ...prevLemma,
-        [e.target.name]: e.target.value,
-      }
-    });
+    if (e.target.type === "checkbox") {
+      setLemma(prevLemma => {
+        return {
+          ...prevLemma,
+          [e.target.name]: e.target.checked
+        }
+      });
+    } else {
+      setLemma(prevLemma => {
+        return {
+          ...prevLemma,
+          [e.target.name]: e.target.value
+        }
+      });
+    }
     props.setChanged(true);
   };
   
@@ -227,37 +237,95 @@ const Lemma = props => {
       <form className={styles.form}>
         <div className={styles.basic}>
           <h3>Basic</h3>
-          <div className={styles.row}>
-            <label className={styles.label} htmlFor="lemmaId">Lemma ID</label>
-            <input className={styles.input} type="text" name="lemmaId" placeholder="0" value={lemma.lemmaId} onChange={(onChange)} disabled={true} />
-          </div>
-          <Dropdown
-            name="language"
-            label="Language"
-            value={lemma.language}
-            options={props.languageOptions}
-            onChange={onChange} 
-          />
-          <Dropdown
-            name="partOfSpeech"
-            label="Part of Speech"
-            value={lemma.partOfSpeech}
-            options={props.partOfSpeechOptions}
-            onChange={onChange} 
-          />
-          <br />
-          <div className={styles.row}>
-            <label className={styles.label} htmlFor="original">Original</label>
-            <input className={styles.input} type="text" name="original" placeholder="original" value={lemma.original} onChange={onChange} />
-          </div>
-          <div className={styles.row}>
-            <label className={styles.label} htmlFor="transliteration">Transliteration</label>
-            <input className={styles.inputTransliteration} type="text" name="transliteration" placeholder="transliteration" value={lemma.transliteration} onChange={onChange} />
-          </div>
-          <div className={styles.row}>
-            <label className={styles.label} htmlFor="translation">Translation</label>
-            <input className={styles.input} type="text" name="translation" placeholder="translation" value={lemma.translation} onChange={onChange} />
-          </div>
+          <table><tbody>
+            {/*<tr>
+              <td><label className={styles.label} htmlFor="lemmaId">Lemma ID</label></td>
+              <td><input className={styles.input} type="text" name="lemmaId" placeholder="0" value={lemma.lemmaId} onChange={(onChange)} disabled={true} /></td>
+            </tr>*/}
+            <tr>
+              <td>
+                <label
+                  className={styles.label}
+                  htmlFor="published"
+                  data-tip="If checked, this lemma will be visible to all site visitors."
+                  data-for="published"
+                >
+                  Published
+                </label>
+                <ReactTooltip id="published" type="light" html={true} />
+              </td>
+              <td>
+                <input
+                  type="checkbox"
+                  name="published"
+                  checked={lemma.published}
+                  onChange={(onChange)}
+                />
+              </td>
+            </tr>
+            <Dropdown
+              name="language"
+              label="Language"
+              value={lemma.language}
+              options={props.languageOptions}
+              onChange={onChange} 
+            />
+            <Dropdown
+              name="partOfSpeech"
+              label="Part of Speech"
+              value={lemma.partOfSpeech}
+              options={props.partOfSpeechOptions}
+              onChange={onChange} 
+            />
+            <tr>
+              <td>
+                <label
+                  className={styles.label}
+                  htmlFor="original"
+                  data-tip="Akkadian: transliteration<br />Egyptian: hieroglyphic<br />Other: original text (Unicode)"
+                  data-for="original"
+                >
+                  Dictionary Form
+                </label>
+                <ReactTooltip id="original" type="light" html={true} />
+              </td>
+              <td>
+                <input
+                  className={styles.input}
+                  type="text"
+                  name="original"
+                  placeholder="original"
+                  value={lemma.original}
+                  onChange={onChange}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label
+                  className={styles.label}
+                  htmlFor="transliteration"
+                  data-tip="Akkadian: (normalized) transcription<br />Egyptian: Egyptological transliteration<br />Other: Roman transliteration"
+                  data-for="phonetic"
+                >
+                  Transliteration
+                </label>
+                <ReactTooltip id="phonetic" type="light" html={true} />
+              </td>
+              <td>
+                <input
+                  className={styles.inputTransliteration}
+                  type="text"
+                  name="transliteration"
+                  placeholder="transliteration"
+                  value={lemma.transliteration}
+                  onChange={onChange} /></td>
+            </tr>
+            <tr>
+              <td><label className={styles.label} htmlFor="translation">English</label></td>
+              <td><input className={styles.input} type="text" name="translation" placeholder="translation" value={lemma.translation} onChange={onChange} /></td>
+            </tr>
+          </tbody></table>
         </div>
         
         <Meanings

@@ -2,7 +2,78 @@
   "lemmata":
   [
     {
-      "lemmaId": 1,
+      "lemmaId": "676905a6-25ea-409d-9a83-eebfa8d27de4",
+      "published": false,
+      "translation": "furrow",
+      "language": "akkadian",
+      "original": "ABSIN",
+      "transliteration": "šer'u",
+      "partOfSpeech": "noun",
+      "meanings": [
+        {"id": 1, "value": "Virgo (zodiacal sign)"},
+        {"id": 2, "value": "Furrow (constellation)"}
+      ],
+      "variants": [
+        {
+          "id": 1,
+          "original": "mulABSIN",
+          "transliteration": "šer'u"
+        },
+        {
+          "id": 2,
+          "original": "mul2ABSIN",
+          "transliteration": "šer'u"
+        },
+        {
+          "id": 3,
+          "original": "ABSIN0 (KI)",
+          "transliteration": "šer'u"
+        },
+        {
+          "id": 4,
+          "original": "mulAB.SIN2",
+          "transliteration": "šer'u"
+        }
+      ],
+      "quotations": [
+        {
+          "id": 1,
+          "original": "mul2UR.A mul2ABSIN mul2GIR2.TAB PA.BIL MAŠ2 u KUN.ME PAP 6 KI.MEŠ ša2 sin ina ŠA3-ši-na TUR3 NIGIN2-ma ana 8-i u4-mu IM ŠAR2-tu u ZI.A",
+          "transliteration": "",
+          "translation": "The Lion (Leo), the Furrow (Virgo), the Scorpion (Scorpio), Pabilsag (Sagittarius), the Goat-Fish (Capricorn) and the Tails (Pisces): in total 6 areas where Sin, (if) he is surrounded by a halo within them, then for 8 days wind and ...",
+          "source": "AO 6455 (TU 11) rev. 29",
+          "genre": "astrological and astronomical procedure text",
+          "provenance": "Uruk",
+          "date": "ca. 200 BCE",
+          "publication": "Brack-Bernsen & Hunger 2002 (see BibMAS)"
+        },
+        {
+          "id": 2,
+          "original": "TA 13 ABSIN0 EN 27 zib ITI ana ITI 2.⸢6⸣.15.42 TAB u LA2",
+          "transliteration": "",
+          "translation": "From 13 Furrow (Virgo) until 27 Tails (Pisces) month by month 2,6;15,42 add and subtract.",
+          "source": "BM 55530 (Ossendrijver 2012 No. 60) obv. 8'",
+          "genre": "mathematical astronomy procedure text",
+          "provenance": "Babylon",
+          "date": "",
+          "publication": "Ossendrijver 2012 (see BibMAS)"
+        },
+        {
+          "id": 3,
+          "original": "DIS mulGU4.AN.NA mulAB.SIN2 u mul[SUḪUR.MAŠ] 3 KI.MEŠ a-n[a kur]⸢NIM?⸣. [MAki]",
+          "transliteration": "",
+          "translation": "The Bull of Heaven (Taurus), the Furrow (Virgo), and the Goat-Fish (Capricorn): 3 areas for [Elam].",
+          "source": "BM 47494 rev. 17-18",
+          "genre": "astrological compendium",
+          "provenance": "Babylon?",
+          "date": "ca. 3xx BCE",
+          "publication": "Hunger 2004 (see BibMAS)"
+        }
+      ]
+    },
+    {
+      "lemmaId": "fa9850a3-288c-4af2-8933-607a88ee4962",
+      "published": false,
       "translation": "Sheep",
       "language": "egyptian",
       "original": "𓃝",
@@ -35,7 +106,7 @@
           "genre": "Astrological/Astronomical list",
           "provenance": "Egypt",
           "date": "Roman",
-          "publication": "O.Neugebauer, “Demotic Horoscopes”, JAOS 63 (1943), 121–121 (115–127)."
+          "publication": "O. Neugebauer, “Demotic Horoscopes”, JAOS 63 (1943), 121–121 (115–127)."
         },
         {
           "id": 2,
@@ -46,12 +117,13 @@
           "genre": "Horoscope",
           "provenance": "Thebes",
           "date": "after AD 18",
-          "publication": "O.Neugebauer, “Demotic Horoscopes”, JAOS 63 (1943), 117–119 (115–127)."
+          "publication": "O. Neugebauer, “Demotic Horoscopes”, JAOS 63 (1943), 117–119 (115–127)."
         }
       ]
     },
     {
-      "lemmaId": 2,
+      "lemmaId": "ac711882-e49e-48f8-9969-e794206a3626",
+      "published": false,
       "translation": "ram",
       "language": "greek",
       "original": "κριός",

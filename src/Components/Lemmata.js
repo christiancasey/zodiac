@@ -24,7 +24,7 @@ const Lemmata = props => {
           return (
             <li key={lemma.lemmaId}>
               <button className={styles.lemmaList} onClick={() => props.selectNewLemma(lemma.lemmaId)}>
-              {lemma.translation} {lemma.original}
+              {lemma.translation} — {lemma.transliteration} — {lemma.original}
               </button>
             </li>);
         })}

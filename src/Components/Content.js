@@ -16,7 +16,7 @@ import DATA from '../Data/sample-data.json';
 
 function loadLemmata() {
   let lemmata = null;
-  lemmata = JSON.parse(localStorage.getItem('lemmata'));
+  lemmata = JSON.parse(localStorage.getItem('lemmata') || null);
   if (!lemmata) {
     localStorage.setItem("lemmata", JSON.stringify(DATA.lemmata));
     lemmata = DATA.lemmata;
@@ -52,43 +52,40 @@ const Content = props => {
   const [languages, setLanguages] = React.useState(getLanguageList(lemmata));
   const [lemma, selectLemma] = React.useState(lemmata[0]);
   const [search, updateSearch] = React.useState('');
-  
   const [changed, setChanged] = React.useState(false);
-  
   const [keyboard, setKeyboard] = React.useState(false);
   
-  // function getLemmata() {
-  //   // RECREATE THIS FOR WORKING WITH REAL DATA
-  //   // const savedLemmata = JSON.parse(localStorage.getItem('lemmata'));
-  //   // return savedLemmata || [];
-  //   return loadLemmata(); // DELETE THIS WHEN REAL DATA
-  // }
-  
-  // const languageOptions = loadLanguageOptions();
-  
   function getLanguageList(lemmata) {
-    
-    // Flesh out the list of language names as proper objects for later use
-    let languages = languageOptions.map((language, i) => {
-      return {
-        id: language.id,
-        label: language.label,
-        value: language.value,
-        active: true,
-      }
-    });
+    // Load the language list from local storage to keep checkbox settings
+    let languages = null;
+    languages = JSON.parse(localStorage.getItem('languageList') || null);
+
+    if (!languages) {
+      // Flesh out the list of language names as proper objects for later use
+      languages = languageOptions.map(language => {
+        return {
+          id: language.id,
+          label: language.label,
+          value: language.value,
+          active: true,
+        }
+      });
+      localStorage.setItem('languageList', JSON.stringify(languages));
+    }
     return languages;
   }
   
   function selectLanguage(languageId) {
-    setLanguages(prevLanguages => languages.map(language => {
+    let newLanguages = languages.map(language => {
       if (language.id === languageId)
         return {
           ...language,
           active: !language.active,
         };
       return language;
-    }));
+    });
+    localStorage.setItem('languageList', JSON.stringify(newLanguages));
+    setLanguages(newLanguages);
   }
   
   function selectNewLemma(lemmaId) {
@@ -104,6 +101,9 @@ const Content = props => {
     setKeyboard(false);
     
     selectLemma(lemmata.find(lemma => lemma.lemmaId === lemmaId));
+    
+    // props.history.replace({ pathname: `/product/${lemmaId}`})
+    // window.history.replaceState(null, "New Page Title", lemmaId);
   }
   
   function saveLemma(newLemma) {
@@ -119,11 +119,13 @@ const Content = props => {
     
     // REPLACE WITH A PROPER LAMBDA FUNCTION CALL
     localStorage.setItem("lemmata", JSON.stringify(newLemmata));
+    
   }
   
   const addNewLemma = () => {
     const newLemma = {
       lemmaId: uuidv4(),
+      published: false,
       translation: '?',
       language: 'akkadian',
       original: '?',
@@ -138,6 +140,17 @@ const Content = props => {
     });
     selectLemma(newLemma);
     setKeyboard(false);
+    setChanged(true);
+    
+    // Remove the search filter and make sure Akkadian is checked so that the new lemma always appears in the list
+    updateSearch('');
+    setLanguages(languages.map(language => {
+      if (language.id === 1) {
+        language.active = true;
+        return language;
+      }
+      return language;
+    }))
   };
   
   const deleteLemma = lemmaId => {

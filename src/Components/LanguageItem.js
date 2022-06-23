@@ -1,9 +1,14 @@
 import React from "react";
+import styles from './Content.module.css';
 
 function LanguageItem(props) {
   return (
-    <li>
-      <input type="checkbox" checked={props.language.active} onChange={() => props.selectLanguage(props.language.id)} />
+    <li className={styles.lemmaList}>
+      <input 
+        type="checkbox"
+        checked={props.language.active}
+        onChange={() => props.selectLanguage(props.language.id)}
+      />
       &nbsp;
       {props.language.label}
     </li>

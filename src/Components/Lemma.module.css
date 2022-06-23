@@ -16,13 +16,14 @@
   display: table-cell;
   padding: 0.5vw 1vw 0 0;
   vertical-align: top;
+  /* width: 11vw; */
   /* text-transform: capitalize; */
   /* color: #FFD8; */
 }
-.input, .inputSearch, .inputTransliteration, .inputWide, .inputTransliterationWide {
+.input, .inputSearch, .inputMeaning, .inputTransliteration, .inputWide, .inputTransliterationWide {
   font: 1.2vw book-antiqua, 'Book Antiqua', serif;
   display: table-cell;
-  width: 12vw;
+  width: 11vw;
   background-color: #2D3B6288;
   color: #FFDC;
   border: 0.1vw solid #FFD8;
@@ -44,7 +45,7 @@
   outline: none;
   height: 2vw;
   border-radius: 0.5vw 0 0 0.5vw;
-  width: 23.2vw;
+  width: 22vw;
 }
 .searchKeyboard {
   background-color: #2D3B6288;
@@ -55,7 +56,7 @@
   outline: none;
   height: 2vw;
   border-radius: 0 0.5vw 0.5vw 0;
-  width: 2.8vw;
+  width: 2.5vw;
 }
 .searchKeyboard:hover {
   background-color: #FFD4;
@@ -67,12 +68,15 @@
   color: #FFD6;
 }
 .inputWide, .inputTransliterationWide, .inputDelete {
-  width: 50vw;
+  width: 48vw;
+}
+.inputMeaning {
+  width: 22.5vw;
 }
 .inputDelete {
   font: 1.2vw book-antiqua, 'Book Antiqua', serif;
   display: table-cell;
-  width: 60vw;
+  width: 58vw;
   background-color: #2D3B6288;
   color: #F00C;
   border: 0.1vw solid #F008;
@@ -90,7 +94,7 @@
 .basic, .meanings, .variants, .quotations, .deleteLemma {
   /* height: calc(100% - 20px); */
   height: 22vw;
-  width: 30vw;
+  width: 29vw;
   overflow: scroll;
   float: left;
   margin: 1vw;
@@ -109,7 +113,7 @@
   height: 10vw;
 }
 .quotations, .deleteLemma {
-  width: 62vw;
+  width: 60vw;
 }
 .deleteLemma {
   color: red;
@@ -134,7 +138,7 @@
   float: right;
 }
 .delete:hover, .add:hover {
-  filter:drop-shadow(0 0 3px #ffe8);
+  filter: drop-shadow(0 0 3px #ffe8);
 }
 
 

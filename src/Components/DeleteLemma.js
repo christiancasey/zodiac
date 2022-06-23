@@ -4,13 +4,19 @@ import styles from './Lemma.module.css';
 
 const DeleteLemma = props => {
   const [style, setStyle] = React.useState({display: 'none'});
+  const [deleteInput, setDeleteInput] = React.useState('');
   
   const startDeletionProcess = e => {
+    setDeleteInput('');
     e.preventDefault();
     if (e.target[0].value === props.lemma.original) {
       props.deleteLemma(props.lemma.lemmaId);
     }
   };
+  
+  const onChange = e => {
+    setDeleteInput(e.target.value);
+  }
   
   return (
     <div 
@@ -32,7 +38,12 @@ const DeleteLemma = props => {
         </p>
         <p>&nbsp;</p>
         <div>
-          <input type="text" className={styles.inputDelete} />
+          <input
+            type="text"
+            className={styles.inputDelete}
+            value={deleteInput}
+            onChange={onChange}
+          />
         </div>
       </form>
     </div>

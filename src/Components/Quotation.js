@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactTooltip from 'react-tooltip';
 
 import styles from './Lemma.module.css';
 import { IoIosTrash } from "react-icons/io";
@@ -24,7 +25,15 @@ const Quotation = props => {
       </h4>
       
       <div className={styles.row}>
-        <label className={styles.label} htmlFor={"original_"+quotation.id}>Original</label>
+        <label
+          className={styles.label}
+          htmlFor={"original_"+quotation.id}
+          data-tip="Akkadian: transliteration<br />Egyptian: hieroglyphic<br />Other: original text (Unicode)"
+          data-for={"original_"+quotation.id}
+        >
+          Original
+        </label>
+        <ReactTooltip id={"original_"+quotation.id} type="light" html={true} />
         <textarea
           className={styles.inputWide}
           name={"original_"+quotation.id}
@@ -34,7 +43,15 @@ const Quotation = props => {
         />
       </div>
       <div className={styles.row}>
-        <label className={styles.label} htmlFor={"transliteration_"+quotation.id}>Transliteration</label>
+        <label
+          className={styles.label}
+          htmlFor={"transliteration_"+quotation.id}
+          data-tip="Akkadian: (normalized) transcription<br />Egyptian: Egyptological transliteration<br />Other: Roman transliteration"
+          data-for={"phonetic_"+quotation.id}
+        >
+          Transliteration
+        </label>
+        <ReactTooltip id={"phonetic_"+quotation.id} type="light" html={true} />
         <textarea
           className={styles.inputTransliterationWide}
           name={"transliteration_"+quotation.id}

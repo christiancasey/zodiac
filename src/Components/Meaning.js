@@ -26,7 +26,7 @@ const Meaning = props => {
     >
       <label className={styles.label} htmlFor={meaning.id}>{i+1}</label>
       <input
-        className={styles.input}
+        className={styles.inputMeaning}
         type="text"
         name={meaning.id}
         placeholder="meaning"

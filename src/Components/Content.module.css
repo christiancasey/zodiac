@@ -57,7 +57,7 @@
 
 
 .lemma {
-  width: 67vw;
+  width: 64vw;
 }
 
 @font-face {
@@ -115,6 +115,9 @@ ol {
   font: 1.2vw book-antiqua, 'Book Antiqua', serif;
   text-shadow: 0 0 3px #FFD2;
 }
+.addNewLemma:hover {
+  filter: drop-shadow(0 0 3px #ffe6);
+}
 
 .lemmaList {
   color: #ffef;
@@ -123,6 +126,9 @@ ol {
   padding: 0.2vw;
   outline: none;
   text-shadow: 0 0 8px #2D3B62FF;
+}
+.lemmaList:hover {
+  text-shadow: 0 0 4px #FFE6;
 }
 
 
