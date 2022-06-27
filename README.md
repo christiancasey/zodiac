@@ -6,3 +6,5 @@ This is a place where I build new features for other collaborators to try out.
 ## Test page
 
 Use the [github pages site](https://christiancasey.github.io/zodiac/) to see the latest features in development.
+
+![Zodiac Logo](zodiac-logo-black.png)
