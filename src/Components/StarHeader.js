@@ -4,7 +4,7 @@ import { IoIosPlay, IoIosPause } from 'react-icons/io';
 import styles from './StarHeader.module.css';
 
 import zodiacConstellations from '../Graphics/zodiac_constellations.svg';
-import zodiacLogo from '../Graphics/zodiac_logo.svg';
+// import zodiacLogo from '../Graphics/zodiac_logo.svg';
 
 const StarHeader = () => {
   let startStyle;

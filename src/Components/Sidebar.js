@@ -10,7 +10,7 @@ const Sidebar = props => {
     <div className={styles.sidebar}>
       <Search 
         updateSearch={props.updateSearch}
-        searchKeyClick={props.searchKeyClick}
+        keyClick={props.keyClick}
         value={props.value}
         keyboard={props.keyboard}
         setKeyboard={props.setKeyboard}
@@ -23,6 +23,7 @@ const Sidebar = props => {
         lemmata={props.lemmata}
         selectedLemmaIndex={props.selectedLemmaIndex}
         selectNewLemma={props.selectNewLemma}
+        sortLemmata={props.sortLemmata}
       />
       <div>
         <button className={styles.addNewLemma} onClick={props.addNewLemma}><IoIosAddCircle /> Add new lemma...</button>

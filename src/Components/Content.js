@@ -4,7 +4,6 @@ import { v4 as uuidv4 } from "uuid";
 import styles from './Content.module.css';
 
 import Sidebar from './Sidebar';
-import LanguageList from './LanguageList';
 import Lemma from './Lemma';
 
 import searchLemmata from './searchLemmata';
@@ -49,8 +48,9 @@ const partOfSpeechOptions = [
 
 const Content = props => {
   const [lemmata, setLemmata] = React.useState(loadLemmata());
+  const [lemmataSortField, setLemmataSortField] = React.useState('translation');
   const [languages, setLanguages] = React.useState(getLanguageList(lemmata));
-  const [lemma, selectLemma] = React.useState(lemmata[0]);
+  const [lemma, selectLemma] = React.useState(null);//lemmata[0]);
   const [search, updateSearch] = React.useState('');
   const [changed, setChanged] = React.useState(false);
   const [keyboard, setKeyboard] = React.useState(false);
@@ -89,12 +89,13 @@ const Content = props => {
   }
   
   function selectNewLemma(lemmaId) {
-    
+
     // Selecting should simply do nothing if the lemma clicked is already displayed
     // The Lemma component doesn't update when the same lemma is selected again
     // Ignoring the click prevents the save-state from becoming invalid if there are changes
     // Otherwise, clicking the same lemma marks it as unchanged, even when that's not true
-    if (lemma.lemmaId == lemmaId)
+    // First make sure lemma is not null (as on startup) before checking its ID
+    if (lemma && lemma.lemmaId === lemmaId)
       return;
     
     setChanged(false);
@@ -160,17 +161,16 @@ const Content = props => {
       return;
     
     const newLemmata = lemmata.filter(lemma => {
-      if (lemma.lemmaId !== lemmaId)
-        return lemma;
+      return (lemma.lemmaId !== lemmaId);
     });
     setLemmata(newLemmata);
-    selectLemma(newLemmata[0]);
+    selectLemma(null);//newLemmata[0]);
     
     // REPLACE WITH A PROPER LAMBDA FUNCTION CALL
     localStorage.setItem("lemmata", JSON.stringify(newLemmata));
-  }
+  };
   
-  const searchKeyClick = key => {
+  const keyClick = key => {
     if (key === 'delete') {
       // Array conversion needed to deal with two-byte Unicode characters
       updateSearch(prevSearch => Array.from(prevSearch).slice(0, -1).join(''));
@@ -179,14 +179,24 @@ const Content = props => {
     }
   };
   
+  const sortLemmata = sortField => {
+    setLemmataSortField(sortField);
+  };
+  
   // Filter lemmata using language list
   // Keep a lemma in the filtered list iff:
   // 1. its language is in the list of languages (which must be true by definition)
   // 2. that language is currently active
   let lemmataFiltered = lemmata.filter(lemma => 
-    languages.some(language => 
-      (language.active && language.value == lemma.language)
+    languages.some(language => (
+        language.active 
+        && language.value === lemma.language
+        && lemma.original !== '?'
+      )
     ));
+  
+  // Use the field set with the 'Sort by' buttons to sort
+  lemmataFiltered.sort((a, b) => (a[lemmataSortField] < b[lemmataSortField] ? -1 : 1));
   
   if (search) {
     // Search function stored in separate module: searchLemmata.js
@@ -197,11 +207,12 @@ const Content = props => {
     <div className={styles.content}>
       <Sidebar
         updateSearch={updateSearch}
-        searchKeyClick={searchKeyClick}
+        keyClick={keyClick}
         value={search}
         languages={languages}
         selectLanguage={selectLanguage}
         lemmata={lemmataFiltered}
+        sortLemmata={sortLemmata}
         selectNewLemma={selectNewLemma}
         addNewLemma={addNewLemma}
         keyboard={keyboard}
@@ -218,7 +229,6 @@ const Content = props => {
           deleteLemma={deleteLemma}
         />
       </div>
-      {false?<a target="_blank" href="https://docs.google.com/document/d/15zpbt8L9lAS6WryYa8q5eK81gCJKsZDGLPvRzRc7UcA/edit#">Feedback form</a>:<></>}
     </div>
   );
 };

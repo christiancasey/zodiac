@@ -19,6 +19,13 @@ const Lemmata = props => {
   return (
     <>
       <h2>Lemmata</h2>
+      <div className={styles.sortButtons}>
+        Sort by: 
+          <button className={styles.sortButtons} onClick={e => props.sortLemmata('original')}>Dictionary</button>
+          <button className={styles.sortButtons} onClick={e => props.sortLemmata('transliteration')}>Transliteration</button>
+          <button className={styles.sortButtons} onClick={e => props.sortLemmata('translation')}>Translation</button>
+          {/* <button className={styles.sortButtons} onClick={e => props.sortLemmata('language')}>Language</button> */}
+      </div>
       <ol className="lemma-list">
         {lemmata.map((lemma,i) => {
           return (

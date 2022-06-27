@@ -7,23 +7,28 @@ import styles from './Keyboards.module.css';
 
 import keyboardData from '../Data/keyboard-data.json';
 
+const keyClick = (e, keyClick, key) => {
+  e.preventDefault();
+  keyClick(key);
+}
+
 const StandardKeyboard = props => {
   const keys = props.keyboard.keys;
   return (
     <div>
-      <button className={styles.deleteKey} onClick={e => props.searchKeyClick('delete')}><RiDeleteBack2Fill /></button>
+      <button className={styles.deleteKey} onClick={e => keyClick(e, props.keyClick, 'delete')}><RiDeleteBack2Fill /></button>
       {keys.map((row,i) => {
         return (
           <div key={i}>
             {row.map((key,j) => {
               return (
-                <button className={styles.key} key={j} onClick={e => props.searchKeyClick(key)}>{key}</button>
+                <button className={styles.key} key={j} onClick={e => keyClick(e, props.keyClick, key)}>{key}</button>
               );
             })}
           </div>
         )
       })}
-      <button className={styles.spaceKey} onClick={e => props.searchKeyClick(' ')}>&nbsp;</button>
+      <button className={styles.spaceKey} onClick={e => keyClick(e, props.keyClick, ' ')}>&nbsp;</button>
     </div>
   );
 };
@@ -33,7 +38,7 @@ const MultipageKeyboardPage = props => {
     <div className="key-row">
       {props.page.keys.map((key,i) => {
         return (
-          <button className={styles.multipageKey} key={i} onClick={e => props.searchKeyClick(key)}>{key}</button>
+          <button className={styles.multipageKey} key={i} onClick={e => keyClick(e, props.keyClick, key)}>{key}</button>
         );
       })}
     </div>
@@ -53,10 +58,10 @@ const MulitpageKeyboard = props => {
           )
         })}
       </div>
-      <button className={styles.deleteKey} onClick={e => props.searchKeyClick('delete')}><RiDeleteBack2Fill /></button>
+      <button className={styles.deleteKey} onClick={e => keyClick(e, props.keyClick, 'delete')}><RiDeleteBack2Fill /></button>
       <MultipageKeyboardPage
         page={page}
-        searchKeyClick={props.searchKeyClick}
+        keyClick={props.keyClick}
       />
     </div>
   );
@@ -80,7 +85,7 @@ const KeyboardContainer = props => {
     return (
       <StandardKeyboard
         keyboard={keyboard}
-        searchKeyClick={props.searchKeyClick}
+        keyClick={props.keyClick}
       />
     );
   }
@@ -88,7 +93,7 @@ const KeyboardContainer = props => {
     return (
       <MulitpageKeyboard
         keyboard={keyboard}
-        searchKeyClick={props.searchKeyClick}
+        keyClick={props.keyClick}
       />
     );
   }
@@ -111,7 +116,7 @@ const KeyboardSelector = props => {
       <KeyboardContainer
         keyboardData={props.keyboardData}
         script={script}
-        searchKeyClick={props.searchKeyClick}
+        keyClick={props.keyClick}
       />
     </>
   );
@@ -126,7 +131,7 @@ const Keyboards = props => {
         <button className={styles.close} onClick={props.keyboardClick}><IoIosCloseCircle /></button>
         <KeyboardSelector
           keyboardData={keyboardData}
-          searchKeyClick={props.searchKeyClick}
+          keyClick={props.keyClick}
         />
       </div>
     </div>

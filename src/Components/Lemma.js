@@ -1,7 +1,8 @@
 import React from "react";
-import { IoMdSave } from "react-icons/io";
 import { v4 as uuidv4 } from "uuid";
 import ReactTooltip from 'react-tooltip';
+import { IoMdSave } from "react-icons/io";
+import { BsKeyboardFill } from "react-icons/bs";
 
 import styles from './Lemma.module.css';
 
@@ -10,6 +11,8 @@ import Meanings from './Meanings';
 import Variants from './Variants';
 import Quotations from './Quotations';
 import DeleteLemma from './DeleteLemma';
+
+import Keyboards from './Keyboards';
 
 
 const DEBUG = false;
@@ -45,6 +48,7 @@ const Lemma = props => {
   });
   
   const onChange = e => {
+    console.log(e.target.name);
     if (e.target.type === "checkbox") {
       setLemma(prevLemma => {
         return {
@@ -216,8 +220,35 @@ const Lemma = props => {
     props.setChanged(false);
     props.saveLemma(lemma);
   };
-    
-  if (!props.lemma)
+  
+  const [dictKeyboard, setDictKeyboard] = React.useState(false);
+  
+  const dictKeyboardClick = e => {
+    e.preventDefault();
+    setDictKeyboard(prevKeyboard => !prevKeyboard);
+  };
+  const dictKeyClick = key => {
+    props.setChanged(true);
+    setLemma(prevLemma => {
+      console.log(prevLemma.original);
+      if (key === 'delete') {
+        return {
+          ...prevLemma,
+          original: Array.from(prevLemma.original).slice(0, -1).join('')
+        }
+      } else {
+        return {
+          ...prevLemma,
+          original: prevLemma.original+key
+        }
+      }
+    });
+  };
+  
+  
+  
+  
+  if (!lemma) {
     return (
       <>
         <h1>Lemma</h1>
@@ -227,137 +258,147 @@ const Lemma = props => {
         </div>
       </>
     );
-  
+  }
   return (
-    <div>
-      <h1>
-        {props.changed ? <i>Lemma (unsaved)</i> : 'Lemma'}
-        <button className={styles.delete} onClick={() => saveLemma()}><IoMdSave /></button>
-      </h1>
-      <form className={styles.form}>
-        <div className={styles.basic}>
-          <h3>Basic</h3>
-          <table><tbody>
-            {/*<tr>
-              <td><label className={styles.label} htmlFor="lemmaId">Lemma ID</label></td>
-              <td><input className={styles.input} type="text" name="lemmaId" placeholder="0" value={lemma.lemmaId} onChange={(onChange)} disabled={true} /></td>
-            </tr>*/}
-            <tr>
-              <td>
-                <label
-                  className={styles.label}
-                  htmlFor="published"
-                  data-tip="If checked, this lemma will be visible to all site visitors."
-                  data-for="published"
-                >
-                  Published
-                </label>
-                <ReactTooltip id="published" type="light" html={true} />
-              </td>
-              <td>
-                <input
-                  type="checkbox"
-                  name="published"
-                  checked={lemma.published}
-                  onChange={(onChange)}
-                />
-              </td>
-            </tr>
-            <Dropdown
-              name="language"
-              label="Language"
-              value={lemma.language}
-              options={props.languageOptions}
-              onChange={onChange} 
-            />
-            <Dropdown
-              name="partOfSpeech"
-              label="Part of Speech"
-              value={lemma.partOfSpeech}
-              options={props.partOfSpeechOptions}
-              onChange={onChange} 
-            />
-            <tr>
-              <td>
-                <label
-                  className={styles.label}
-                  htmlFor="original"
-                  data-tip="Akkadian: transliteration<br />Egyptian: hieroglyphic<br />Other: original text (Unicode)"
-                  data-for="original"
-                >
-                  Dictionary Form
-                </label>
-                <ReactTooltip id="original" type="light" html={true} />
-              </td>
-              <td>
-                <input
-                  className={styles.input}
-                  type="text"
-                  name="original"
-                  placeholder="original"
-                  value={lemma.original}
-                  onChange={onChange}
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <label
-                  className={styles.label}
-                  htmlFor="transliteration"
-                  data-tip="Akkadian: (normalized) transcription<br />Egyptian: Egyptological transliteration<br />Other: Roman transliteration"
-                  data-for="phonetic"
-                >
-                  Transliteration
-                </label>
-                <ReactTooltip id="phonetic" type="light" html={true} />
-              </td>
-              <td>
-                <input
-                  className={styles.inputTransliteration}
-                  type="text"
-                  name="transliteration"
-                  placeholder="transliteration"
-                  value={lemma.transliteration}
-                  onChange={onChange} /></td>
-            </tr>
-            <tr>
-              <td><label className={styles.label} htmlFor="translation">English</label></td>
-              <td><input className={styles.input} type="text" name="translation" placeholder="translation" value={lemma.translation} onChange={onChange} /></td>
-            </tr>
-          </tbody></table>
+      <div>
+        <h1>
+          {props.changed ? <i>Lemma (unsaved)</i> : 'Lemma'}
+          <button className={styles.delete} onClick={() => saveLemma()}>{(false) ? <IoMdSave /> : 'SAVE' }</button>
+        </h1>
+        <form className={styles.form}>
+          <div className={styles.basic}>
+            <h3>Basic</h3>
+            <table><tbody>
+              {/* <tr>
+                <td><label className={styles.label} htmlFor="lemmaId">Lemma ID</label></td>
+                <td><input className={styles.input} type="text" name="lemmaId" placeholder="0" value={lemma.lemmaId} onChange={(onChange)} disabled={true} /></td>
+              </tr> */}
+              <tr>
+                <td>
+                  <label
+                    className={styles.label}
+                    htmlFor="published"
+                    data-tip="If checked, this lemma will be visible to all site visitors."
+                    data-for="published"
+                  >
+                    Published
+                  </label>
+                  <ReactTooltip id="published" type="light" html={true} />
+                </td>
+                <td>
+                  <input
+                    type="checkbox"
+                    name="published"
+                    checked={lemma.published}
+                    onChange={(onChange)}
+                  />
+                </td>
+              </tr>
+              <Dropdown
+                name="language"
+                label="Language"
+                value={lemma.language}
+                options={props.languageOptions}
+                onChange={onChange} 
+              />
+              <Dropdown
+                name="partOfSpeech"
+                label="Part of Speech"
+                value={lemma.partOfSpeech}
+                options={props.partOfSpeechOptions}
+                onChange={onChange} 
+              />
+              <tr>
+                <td>
+                  <label
+                    className={styles.label}
+                    htmlFor="original"
+                    data-tip="Akkadian: transliteration<br />Egyptian: hieroglyphic<br />Other: original text (Unicode)"
+                    data-for="original"
+                  >
+                    Dictionary Form
+                  </label>
+                  <ReactTooltip id="original" type="light" html={true} />
+                </td>
+                <td>
+                  <input
+                    className={styles.input}
+                    type="text"
+                    name="original"
+                    placeholder="original"
+                    value={lemma.original}
+                    onChange={onChange}
+                  />
+                  {/*<button
+                    className={styles.searchKeyboard}
+                    onClick={e => dictKeyboardClick(e)}
+                  >
+                    <BsKeyboardFill />
+                  </button>
+                  <div className={props.keyboard ? styles.fadeIn : styles.fadeOut }>
+                    {/* <Keyboards visible={props.keyboard} keyboardClick={keyboardClick} searchKeyClick={props.searchKeyClick} /> * /}
+                    <Keyboards visible={dictKeyboard} keyboardClick={dictKeyboardClick} keyClick={dictKeyClick} />
+                  </div> */}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label
+                    className={styles.label}
+                    htmlFor="transliteration"
+                    data-tip="Akkadian: (normalized) transcription<br />Egyptian: Egyptological transliteration<br />Other: Roman transliteration"
+                    data-for="phonetic"
+                  >
+                    Transliteration
+                  </label>
+                  <ReactTooltip id="phonetic" type="light" html={true} />
+                </td>
+                <td>
+                  <input
+                    className={styles.inputTransliteration}
+                    type="text"
+                    name="transliteration"
+                    placeholder="transliteration"
+                    value={lemma.transliteration}
+                    onChange={onChange} /></td>
+              </tr>
+              <tr>
+                <td><label className={styles.label} htmlFor="translation">Translation</label></td>
+                <td><input className={styles.input} type="text" name="translation" placeholder="translation" value={lemma.translation} onChange={onChange} /></td>
+              </tr>
+            </tbody></table>
+          </div>
+          
+          <Meanings
+            meanings={lemma.meanings}
+            updateMeaning={updateMeaning}
+            addNewMeaning={addNewMeaning}
+            deleteMeaning={deleteMeaning}
+          />
+          
+          <Variants
+            variants={lemma.variants}
+            updateVariant={updateVariant}
+            addNewVariant={addNewVariant}
+            deleteVariant={deleteVariant}
+          />
+          
+          <Quotations
+            quotations={lemma.quotations}
+            updateQuotation={updateQuotation}
+            addNewQuotation={addNewQuotation}
+            deleteQuotation={deleteQuotation}
+          />
+          
+        </form>
+          
+        <DeleteLemma lemma={lemma} deleteLemma={props.deleteLemma} />
+              
+        <div className={styles.developmentData} style={{opacity: 0.7, color: '#2d2'}}>
+          <pre id="json">{DEBUG ? JSON.stringify(lemma, null, 2) : ''}</pre>
         </div>
-        
-        <Meanings
-          meanings={lemma.meanings}
-          updateMeaning={updateMeaning}
-          addNewMeaning={addNewMeaning}
-          deleteMeaning={deleteMeaning}
-        />
-        
-        <Variants
-          variants={lemma.variants}
-          updateVariant={updateVariant}
-          addNewVariant={addNewVariant}
-          deleteVariant={deleteVariant}
-        />
-        
-        <Quotations
-          quotations={lemma.quotations}
-          updateQuotation={updateQuotation}
-          addNewQuotation={addNewQuotation}
-          deleteQuotation={deleteQuotation}
-        />
-        
-      </form>
-        
-      <DeleteLemma lemma={lemma} deleteLemma={props.deleteLemma} />
-            
-      <div className={styles.developmentData} style={{opacity: 0.7, color: '#2d2'}}>
-        <pre id="json">{DEBUG ? JSON.stringify(lemma, null, 2) : ''}</pre>
       </div>
-    </div>
-  );
+    );
 };
 
 export default Lemma;

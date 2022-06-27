@@ -20,7 +20,7 @@
   /* text-transform: capitalize; */
   /* color: #FFD8; */
 }
-.input, .inputSearch, .inputMeaning, .inputTransliteration, .inputWide, .inputTransliterationWide {
+.input, .inputSearch, .inputMeaning, .inputTransliteration, .inputWide, .inputTransliterationWide, .inputKeyboard {
   font: 1.2vw book-antiqua, 'Book Antiqua', serif;
   display: table-cell;
   width: 11vw;
@@ -32,8 +32,14 @@
   padding: 0.2vw;
   outline: none;
   float: left;
+  height: 2vw;
   /* margin-top: 5px;
   margin-right: 5px; */
+}
+.inputKeyboard {
+  border-radius: 0.5vw 0 0 0.5vw;
+  margin-right: 0;
+  width: 8.5vw;
 }
 .inputSearch {
   font: 1.2vw book-antiqua, 'Book Antiqua', serif;
@@ -59,7 +65,8 @@
   width: 2.5vw;
 }
 .searchKeyboard:hover {
-  background-color: #FFD4;
+  /* background-color: #FFD4; */
+  filter: drop-shadow(0 0 3px #ffe3);
 }
 .inputTransliteration, .inputTransliterationWide {
   font-style: italic;

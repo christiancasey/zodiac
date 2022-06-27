@@ -1,5 +1,15 @@
 [
   {
+    "id": 0,
+    "script": "akkadian",
+    "scriptLabel": "Akkadian",
+    "keyboardType": "standard",
+    "keys": [
+      [ "ā", "â", "ē", "ê", "ë", "é", "ī", "î", "ï", "ı", "ū", "ṣ", "š", "ḫ", "'" ],
+      [ "Ā", "Â", "Ē", "Ê", "Ë", "É", "Ī", "Î", "Ï", "Ū", "Ṣ", "Š", "Ḫ" ]
+    ]
+  },
+  {
     "id": 1,
     "script": "egyptian",
     "scriptLabel": "Egyptian",

@@ -30,7 +30,7 @@ const Search = props => {
       </button>
       <p>&nbsp;</p>
       <div className={props.keyboard ? styles.fadeIn : styles.fadeOut }>
-        <Keyboards visible={props.keyboard} keyboardClick={keyboardClick} searchKeyClick={props.searchKeyClick} />
+        <Keyboards visible={props.keyboard} keyboardClick={keyboardClick} keyClick={props.keyClick} />
       </div>
     </>
   );

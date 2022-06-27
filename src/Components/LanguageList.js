@@ -1,7 +1,5 @@
 import React from "react";
 
-import styles from './Content.module.css';
-
 import LanguageItem from "./LanguageItem";
 
 const LanguageList = props => {
