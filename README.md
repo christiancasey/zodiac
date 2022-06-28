@@ -1,4 +1,4 @@
-# Zodiac Glossary Test page
+# Zodiac Glossary Test Page
 
 This is a work-in-progress version of the Zodiac Glossary, part of [ZODIAC – Ancient Astral Science in Transformation](https://www.geschkult.fu-berlin.de/en/e/zodiac/index.html) an ERC-funded research project at FU Berlin.
 This is a place where I build new features for other collaborators to try out.
