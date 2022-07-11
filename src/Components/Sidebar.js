@@ -1,3 +1,4 @@
+import React from 'react';
 import styles from './Content.module.css';
 import { IoIosAddCircle } from "react-icons/io";
 

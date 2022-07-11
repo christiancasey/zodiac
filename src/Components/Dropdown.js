@@ -1,3 +1,4 @@
+import React from 'react';
 import styles from './Lemma.module.css';
 
 const Dropdown = ({ name, label, value, options, onChange }) => {

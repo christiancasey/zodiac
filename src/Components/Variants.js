@@ -1,3 +1,4 @@
+import React from 'react';
 import styles from './Lemma.module.css';
 import { IoIosAddCircle } from "react-icons/io";
 

@@ -26,16 +26,30 @@ const Lemmata = props => {
           <button className={styles.sortButtons} onClick={e => props.sortLemmata('translation')}>Translation</button>
           {/* <button className={styles.sortButtons} onClick={e => props.sortLemmata('language')}>Language</button> */}
       </div>
-      <ol className="lemma-list">
+      <br />
+      <table className="lemma-list"><tbody>
         {lemmata.map((lemma,i) => {
           return (
-            <li key={lemma.lemmaId}>
-              <button className={styles.lemmaList} onClick={() => props.selectNewLemma(lemma.lemmaId)}>
-              {lemma.translation} — {lemma.transliteration} — {lemma.original}
-              </button>
-            </li>);
+            <tr key={lemma.lemmaId}>
+              <td>
+                <button className={styles.lemmaList} onClick={() => props.selectNewLemma(lemma.lemmaId)}>
+                {lemma.original}
+                </button>
+              </td>
+              <td>
+                <button className={styles.lemmaList} onClick={() => props.selectNewLemma(lemma.lemmaId)}>
+                {lemma.transliteration}
+                </button>
+              </td>
+              <td>
+                <button className={styles.lemmaList} onClick={() => props.selectNewLemma(lemma.lemmaId)}>
+                {lemma.translation}
+                </button>
+              </td>
+            </tr>);
         })}
-      </ol>
+      </tbody></table>
+      <br />
     </>
   );
 };

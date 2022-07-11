@@ -48,9 +48,9 @@ const partOfSpeechOptions = [
 
 const Content = props => {
   const [lemmata, setLemmata] = React.useState(loadLemmata());
-  const [lemmataSortField, setLemmataSortField] = React.useState('translation');
+  const [lemmataSortField, setLemmataSortField] = React.useState('original');
   const [languages, setLanguages] = React.useState(getLanguageList(lemmata));
-  const [lemma, selectLemma] = React.useState(null);//lemmata[0]);
+  const [lemma, selectLemma] = React.useState(null);
   const [search, updateSearch] = React.useState('');
   const [changed, setChanged] = React.useState(false);
   const [keyboard, setKeyboard] = React.useState(false);
@@ -164,7 +164,7 @@ const Content = props => {
       return (lemma.lemmaId !== lemmaId);
     });
     setLemmata(newLemmata);
-    selectLemma(null);//newLemmata[0]);
+    selectLemma(null);
     
     // REPLACE WITH A PROPER LAMBDA FUNCTION CALL
     localStorage.setItem("lemmata", JSON.stringify(newLemmata));

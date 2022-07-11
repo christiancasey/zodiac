@@ -269,10 +269,11 @@ const Lemma = props => {
           <div className={styles.basic}>
             <h3>Basic</h3>
             <table><tbody>
-              {/* <tr>
+              <tr>
                 <td><label className={styles.label} htmlFor="lemmaId">Lemma ID</label></td>
                 <td><input className={styles.input} type="text" name="lemmaId" placeholder="0" value={lemma.lemmaId} onChange={(onChange)} disabled={true} /></td>
-              </tr> */}
+              </tr>
+              {/* comment out the above when routing is finished */}
               <tr>
                 <td>
                   <label
